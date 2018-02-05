@@ -41,20 +41,23 @@ public class Client {
         //Initialize the text field with server status
         StatusTextField.setText(getUptimeStatus(HostURL));
 
+        //we only know the up status as of now, assume any status that's not an error
+        //is downtime.
         switch(StatusTextField.getText()){
             case "UP":
                 StatusTextField.setBackground(Color.GREEN);
                 StatusTextField.setDisabledTextColor(Color.BLACK);
                 break;
-            case "DOWN":
-                StatusTextField.setBackground(Color.RED);
-                StatusTextField.setDisabledTextColor(Color.WHITE);
-                break;
-
-            default:
+            case "ERROR":
                 StatusTextField.setBackground(Color.ORANGE);
                 StatusTextField.setDisabledTextColor(Color.WHITE);
                 StatusTextField.setText("ERROR");
+                break;
+
+            default:
+                StatusTextField.setBackground(Color.RED);
+                StatusTextField.setDisabledTextColor(Color.WHITE);
+                StatusTextField.setText("DOWN");
         }
 
     }
@@ -75,10 +78,10 @@ public class Client {
 
         } catch (MalformedURLException e) {
             //url failed
-            return "bad URL";
+            return "ERROR";
         } catch (IOException e) {
             //open connection failed
-            return "bad connection";
+            return "ERROR";
         }
     }
 }
