@@ -3,6 +3,7 @@ package com.kevingentile;
 import com.google.gson.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -41,26 +42,36 @@ public class Client {
         });
         //Initialize the text field with server status
         StatusTextField.setText(getUptimeStatus(HostURL));
-        
+
+        switch(StatusTextField.getText()){
+            case "UP":
+                StatusTextField.setBackground(Color.GREEN);
+                StatusTextField.setDisabledTextColor(Color.BLACK);
+                break;
+            case "DOWN":
+                StatusTextField.setBackground(Color.RED);
+                StatusTextField.setDisabledTextColor(Color.WHITE);
+                break;
+
+            default:
+                StatusTextField.setBackground(Color.ORANGE);
+                StatusTextField.setDisabledTextColor(Color.WHITE);
+                StatusTextField.setText("ERROR");
+        }
+
     }
 
     private static String getUptimeStatus(String sURL) {
-        //TODO create model for and deserialize status object http://www.baeldung.com/gson-deserialization-guide
+
         try {
             URL url = new URL(sURL);
             HttpURLConnection request = (HttpURLConnection) url.openConnection();
             request.connect();
-            // Convert to a JSON object to print data
-
+            // Convert to a JSON object
             JsonParser jp = new JsonParser(); //from gson
             InputStreamReader inputReader = new InputStreamReader((InputStream) request.getContent());
             JsonElement json = jp.parse(inputReader); //Convert the input stream to a json element
-            //JsonElement rootElement = root.getAsJsonArray(); //May be an array, may be an object.
-            //JsonObject statusObject = rootArray.get(0);
-            //System.out.println(rootArray.get(0).getAsString());
-            //zipcode = rootobj.get("zip_code").getAsString(); //just grab the zipcode}
-
-
+            //extract json into abstract class and return
             Status []responseArray = new GsonBuilder().create().fromJson(json, Status[].class);
             return responseArray[0].status.toString();
 
