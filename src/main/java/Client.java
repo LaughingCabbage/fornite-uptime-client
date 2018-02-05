@@ -16,6 +16,8 @@ public class Client {
     private JPanel MainPanel;
     private JFormattedTextField StatusTextField;
     private static final String HOST_URL = "https://lightswitch-public-service-prod06.ol.epicgames.com/lightswitch/api/service/bulk/status?serviceId=Fortnite";
+    private Timer pollingTimer;
+    private static final int TIMER_DELAY = 30000; // 30 seconds
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Fortnite Uptime Tracker");
@@ -33,11 +35,13 @@ public class Client {
     }
 
     private Client() {
-        button1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Hello World!");
-            }
+        button1.addActionListener(e -> JOptionPane.showMessageDialog(null, "Hello World!"));
+        pollingTimer = new Timer(TIMER_DELAY, e -> {
+            pollServerStatus();
+            System.out.println("polled server stats in timer");
         });
+        pollingTimer.setRepeats(true);
+        pollingTimer.start();
         //Initialize the text field with server status
         pollServerStatus();
 
