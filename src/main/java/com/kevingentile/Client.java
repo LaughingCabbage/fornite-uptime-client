@@ -1,9 +1,6 @@
 package com.kevingentile;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +29,10 @@ public class Client {
 
     }
 
+    public class Status<T>{
+        public T status;
+    }
+
     public Client() {
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -40,6 +41,7 @@ public class Client {
         });
         //Initialize the text field with server status
         StatusTextField.setText(getUptimeStatus(HostURL));
+        
     }
 
     private static String getUptimeStatus(String sURL) {
@@ -49,14 +51,19 @@ public class Client {
             HttpURLConnection request = (HttpURLConnection) url.openConnection();
             request.connect();
             // Convert to a JSON object to print data
+
             JsonParser jp = new JsonParser(); //from gson
             InputStreamReader inputReader = new InputStreamReader((InputStream) request.getContent());
-            JsonElement root = jp.parse(inputReader); //Convert the input stream to a json element
-            JsonElement rootElement = root.getAsJsonArray(); //May be an array, may be an object.
+            JsonElement json = jp.parse(inputReader); //Convert the input stream to a json element
+            //JsonElement rootElement = root.getAsJsonArray(); //May be an array, may be an object.
             //JsonObject statusObject = rootArray.get(0);
             //System.out.println(rootArray.get(0).getAsString());
             //zipcode = rootobj.get("zip_code").getAsString(); //just grab the zipcode}
-            return "";
+
+
+            Status []responseArray = new GsonBuilder().create().fromJson(json, Status[].class);
+            return responseArray[0].status.toString();
+
         } catch (MalformedURLException e) {
             //url failed
             return "bad URL";
