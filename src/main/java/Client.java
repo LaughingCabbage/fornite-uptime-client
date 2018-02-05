@@ -1,5 +1,3 @@
-package com.kevingentile;
-
 import com.google.gson.*;
 
 import javax.swing.*;
