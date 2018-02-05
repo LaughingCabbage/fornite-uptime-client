@@ -15,7 +15,7 @@ public class Client {
     private JButton button1;
     private JPanel MainPanel;
     private JFormattedTextField StatusTextField;
-    public static final String HostURL = "https://lightswitch-public-service-prod06.ol.epicgames.com/lightswitch/api/service/bulk/status?serviceId=Fortnite";
+    private static final String HOST_URL = "https://lightswitch-public-service-prod06.ol.epicgames.com/lightswitch/api/service/bulk/status?serviceId=Fortnite";
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Fortnite Uptime Tracker");
@@ -28,11 +28,11 @@ public class Client {
 
     }
 
-    public class Status<T>{
-        public T status;
+    private class Status<T>{
+        T status;
     }
 
-    public Client() {
+    private Client() {
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Hello World!");
@@ -43,10 +43,10 @@ public class Client {
 
     }
 
-    public void pollServerStatus(){
+    private void pollServerStatus(){
         //we only know the up status as of now, assume any status that's not an error
         //is downtime.
-        StatusTextField.setText(getUptimeStatus(HostURL));
+        StatusTextField.setText(getUptimeStatus(HOST_URL));
         switch(StatusTextField.getText()){
             case "UP":
                 StatusTextField.setBackground(Color.GREEN);
