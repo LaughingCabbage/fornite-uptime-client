@@ -1,3 +1,5 @@
+package com.uptimetracker;
+
 import com.google.gson.*;
 
 import javax.sound.sampled.*;
