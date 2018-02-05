@@ -39,10 +39,14 @@ public class Client {
             }
         });
         //Initialize the text field with server status
-        StatusTextField.setText(getUptimeStatus(HostURL));
+        pollServerStatus();
 
+    }
+
+    public void pollServerStatus(){
         //we only know the up status as of now, assume any status that's not an error
         //is downtime.
+        StatusTextField.setText(getUptimeStatus(HostURL));
         switch(StatusTextField.getText()){
             case "UP":
                 StatusTextField.setBackground(Color.GREEN);
@@ -59,7 +63,6 @@ public class Client {
                 StatusTextField.setDisabledTextColor(Color.WHITE);
                 StatusTextField.setText("DOWN");
         }
-
     }
 
     private static String getUptimeStatus(String sURL) {
