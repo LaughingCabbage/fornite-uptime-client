@@ -8,9 +8,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.*;
 
 public class Client {
     private JButton setAlarmButton;
@@ -18,7 +16,9 @@ public class Client {
     private JPanel MainPanel;
     private JFormattedTextField StatusTextField;
     private JButton cancelAlarmButton;
+    private JButton authorButton;
     private static final String HOST_URL = "https://lightswitch-public-service-prod06.ol.epicgames.com/lightswitch/api/service/bulk/status?serviceId=Fortnite";
+    private static final String AUTHOR_URL = "https://github.com/LaughingCabbage/fornite-uptime-client";
     private Timer pollingTimer;
     private static final int TIMER_DELAY = 30000; // 30 seconds
     private Clip alarmClip;
@@ -31,7 +31,7 @@ public class Client {
         frame.pack();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-        frame.setSize(400,150);
+        frame.setSize(400,200);
 
     }
 
@@ -42,6 +42,16 @@ public class Client {
         });
         cancelAlarmButton.addActionListener(e ->{
             disableAlarm();
+        });
+        authorButton.addActionListener(e -> {
+            try {
+                URI authorURI = new URI(AUTHOR_URL);
+                if (Desktop.isDesktopSupported()){
+                    try{
+                        Desktop.getDesktop().browse(authorURI);
+                    }catch(IOException except){}
+                }
+            }catch(URISyntaxException except){}
         });
         //initialize server status polling timer
         pollingTimer = new Timer(TIMER_DELAY, e -> {
