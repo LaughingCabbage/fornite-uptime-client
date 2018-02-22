@@ -1,4 +1,7 @@
 # fortnite-uptime-client
+![Fortnite Uptime Tracker](https://github.com/LaughingCabbage/fornite-uptime-client/raw/master/release/demo.PNG)
+
+
 This tool simply polls the Fornite server for a status.
 During downtime, you can set an alarm that will sound when the servers come back online.
 
