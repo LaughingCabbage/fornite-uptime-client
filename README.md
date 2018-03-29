@@ -7,7 +7,7 @@ During downtime, you can set an alarm that will sound when the servers come back
 
 # Installation
 
-If you don't have it, you'll need a copy of the [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+If you don't have it, you'll need a copy of the [Java Runtime Environment SE 10](http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html)
 
 The download can be found in the release folder or just click below:
 
