@@ -10,6 +10,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
 
+
+//TODO implement Launch4j wrapper for JRE 10 
+//http://launch4j.sourceforge.net/
+
 public class Client {
     private JButton setAlarmButton;
     private boolean isAlarmSet = false;
